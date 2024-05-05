@@ -18,7 +18,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "src/**/*.{ts,js,json}": "prettier --write"
+    "**/*": "prettier --write"
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "^1.0.0",
