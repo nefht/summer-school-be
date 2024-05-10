@@ -5,11 +5,29 @@ const Registrations: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
+  access: {
+    create: () => true,
+    read: () => true,
+  },
   fields: [
     {
       name: 'name',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'gender',
+      type: 'radio',
+      options: [
+        {
+          label: 'Nam',
+          value: 'male',
+        },
+        {
+          label: 'Nữ',
+          value: 'female',
+        },
+      ],
     },
     {
       name: 'dateOfBirth',
@@ -82,9 +100,33 @@ const Registrations: CollectionConfig = {
       required: true,
     },
     {
-      name: 'desiredOutcome',
+      name: 'expectation',
       type: 'textarea',
       //   required: true,
+    },
+    // Trạng thái đăng ký
+    {
+      name: 'status',
+      type: 'radio',
+      options: [
+        {
+          label: 'Chưa xác nhận',
+          value: 'unconfirmed',
+        },
+        {
+          label: 'Đã xác nhận',
+          value: 'confirmed',
+        },
+        {
+          label: 'Đã hủy',
+          value: 'cancelled',
+        },
+      ],
+      defaultValue: 'unconfirmed',
+      admin: {
+        layout: 'horizontal',
+      },
+      // required: true,
     },
   ],
 };
