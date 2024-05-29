@@ -18,7 +18,13 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*": "prettier --write"
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/.prettierignore": [
+      "echo Ignoring .prettierignore file"
+    ]
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "^1.0.0",
