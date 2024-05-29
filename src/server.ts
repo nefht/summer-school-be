@@ -2,6 +2,7 @@
 
 import express from 'express';
 import payload from 'payload';
+import nodemailer from 'nodemailer';
 
 require('dotenv').config();
 const app = express();
@@ -11,6 +12,18 @@ app.get('/', (_, res) => {
   res.redirect('/admin');
 });
 
+// Tạo custom Nodemailer transport
+const transport = nodemailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
 const start = async () => {
   // Initialize Payload
   await payload.init({
@@ -18,6 +31,11 @@ const start = async () => {
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+    },
+    email: {
+      fromName: 'Admin',
+      fromAddress: 'admin@example.com',
+      transport,
     },
   });
 

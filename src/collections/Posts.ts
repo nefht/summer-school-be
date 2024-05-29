@@ -6,62 +6,77 @@ import Alert from '../blocks/Alert';
 const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
-    defaultColumns: ['title', 'author', 'category', 'tags', 'status'],
+    defaultColumns: ['title', 'description'],
     useAsTitle: 'title',
   },
   access: {
     read: () => true,
   },
+
+  // hooks: {
+  //   beforeChange: [
+  //     ({ data, originalDoc }) => {
+  //       const now = new Date();
+
+  //       // Nếu publishedDate nhỏ hơn hoặc bằng thời điểm hiện tại, status sẽ là 'published'
+  //       if (data.publishedDate && new Date(data.publishedDate) <= now) {
+  //         data.status = 'published';
+  //       }
+  //       // Nếu publishedDate lớn hơn thời điểm hiện tại, status sẽ là 'draft'
+  //       else if (data.publishedDate && new Date(data.publishedDate) > now) {
+  //         data.status = 'draft';
+  //       }
+  //       return data;
+  //     },
+  //   ],
+  // },
+
   fields: [
     {
-      name: 'postMeta',
-      type: 'group',
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          minLength: 20,
-          maxLength: 100,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          minLength: 40,
-          maxLength: 160,
-        },
-        {
-          name: 'keywords',
-          label: 'Keywords',
-          type: 'text',
-        },
-      ],
-    },
-    {
       name: 'title',
+      label: 'Tiêu đề',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'description',
+      label: 'Mô tả',
+      type: 'textarea',
+      required: true,
+    },
+    {
+      name: 'keywords',
+      label: 'Từ khóa',
+      type: 'text',
     },
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Post Media',
+          label: 'Thêm ảnh tin bài',
           fields: [
             {
-              name: 'postImage',
-              type: 'upload',
-              relationTo: 'media',
-              required: true,
+              name: 'postImages',
+              label: 'Tải ảnh lên',
+              type: 'array',
+              minRows: 1,
+              fields: [
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: true,
+                },
+              ],
             },
           ],
         },
         {
-          label: 'Post Layout',
+          label: 'Nội dung tin bài',
           fields: [
             {
               name: 'layout',
+              label: 'Nội dung',
               type: 'blocks',
               blocks: [Quote, Content, Alert],
             },
@@ -70,6 +85,48 @@ const Posts: CollectionConfig = {
       ],
     },
     // add sidebar fields here
+    {
+      name: 'status',
+      label: 'Trạng thái',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          value: 'draft',
+          label: 'Draft',
+        },
+        {
+          value: 'published',
+          label: 'Published',
+        },
+      ],
+      defaultValue: 'published',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'publishedDate',
+      label: 'Ngày đăng',
+      type: 'date',
+      required: true,
+      admin: {
+        position: 'sidebar',
+        date: {
+          displayFormat: 'dd/MM/yyyy',
+        },
+        condition: (data, originalDoc) => data.status == 'published',
+      },
+    },
+    {
+      name: 'author',
+      label: 'Tác giả',
+      type: 'relationship',
+      relationTo: 'users',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 };
 export default Posts;

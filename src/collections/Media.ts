@@ -13,6 +13,10 @@ const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
     },
+    {
+      name: 'description',
+      type: 'text',
+    },
   ],
   upload: {
     staticURL: '/media',
