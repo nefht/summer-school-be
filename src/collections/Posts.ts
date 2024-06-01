@@ -86,6 +86,15 @@ const Posts: CollectionConfig = {
     },
     // add sidebar fields here
     {
+      name: 'representImage',
+      label: 'Ảnh Thumbnail',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'status',
       label: 'Trạng thái',
       type: 'select',
