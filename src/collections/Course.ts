@@ -3,8 +3,13 @@ import { slateEditor } from '@payloadcms/richtext-slate';
 
 const Course: CollectionConfig = {
   slug: 'course',
+  labels: {
+    singular: 'Khóa học',
+    plural: 'Khóa học',
+  },
   admin: {
     useAsTitle: 'title',
+    group: 'Trang quản trị',
   },
   access: {
     read: () => true,

@@ -3,8 +3,13 @@ import { CollectionConfig } from 'payload/types';
 
 const Registrations: CollectionConfig = {
   slug: 'registrations',
+  labels: {
+    singular: 'Đơn đăng ký',
+    plural: 'Đơn đăng ký',
+  },
   admin: {
     useAsTitle: 'name',
+    group: 'Trang quản trị',
   },
   access: {
     create: () => true,

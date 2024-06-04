@@ -5,9 +5,15 @@ import Alert from '../blocks/Alert';
 
 const Posts: CollectionConfig = {
   slug: 'posts',
+  labels: {
+    singular: 'Tin bài',
+    plural: 'Tin bài',
+  },
   admin: {
     defaultColumns: ['title', 'description'],
     useAsTitle: 'title',
+    description: 'Trang quản lý tin bài',
+    group: 'Trang quản trị',
   },
   access: {
     read: () => true,

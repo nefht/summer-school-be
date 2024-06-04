@@ -2,8 +2,13 @@ import { CollectionConfig } from 'payload/types';
 
 const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: 'Ảnh',
+    plural: 'Ảnh',
+  },
   admin: {
     useAsTitle: 'title',
+    group: 'Trang quản trị',
   },
   access: {
     read: () => true,

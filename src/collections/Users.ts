@@ -2,6 +2,10 @@ import { CollectionConfig } from 'payload/types';
 
 const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: 'Người dùng',
+    plural: 'Người dùng',
+  },
   auth: {
     cookies: {
       secure: process.env.PAYLOAD_ENV !== 'development',
@@ -10,6 +14,7 @@ const Users: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'email',
+    group: 'Trang quản trị',
   },
   fields: [
     // Email added by default
