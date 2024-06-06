@@ -5,6 +5,10 @@ import Alert from '../blocks/Alert';
 
 const AboutUs: CollectionConfig = {
   slug: 'about-us',
+  labels: {
+    singular: 'Giới thiệu',
+    plural: 'Giới thiệu',
+  },
   admin: {
     defaultColumns: ['title', 'description'],
     useAsTitle: 'title',
@@ -14,15 +18,9 @@ const AboutUs: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
-      label: 'Tiêu đề',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'description',
-      label: 'Nội dung',
-      type: 'textarea',
+      label: 'Mô tả giới thiệu',
+      type: 'richText',
       required: true,
     },
     {
@@ -39,6 +37,7 @@ const AboutUs: CollectionConfig = {
               fields: [
                 {
                   name: 'image',
+                  label: 'Ảnh',
                   type: 'upload',
                   relationTo: 'media',
                   required: true,
@@ -47,19 +46,54 @@ const AboutUs: CollectionConfig = {
             },
           ],
         },
-        {
-          label: 'Nội dung',
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              blocks: [Quote, Content, Alert],
-            },
-          ],
-        },
       ],
     },
     // add sidebar fields here
+    {
+      name: 'address',
+      label: 'Địa chỉ',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'phone',
+      label: 'Số điện thoại',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'workingTime',
+      label: 'Thời gian làm việc',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'website',
+      label: 'Website',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 };
 export default AboutUs;

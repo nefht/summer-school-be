@@ -54,7 +54,13 @@ const Course: CollectionConfig = {
         },
         {
           name: 'partDescription',
-          label: 'Mô tả bài học',
+          label: 'Mô tả ngắn gọn',
+          type: 'textarea',
+          required: true,
+        },
+        {
+          name: 'partDetail',
+          label: 'Chi tiết bài học',
           type: 'richText',
           required: true,
           editor: slateEditor({
@@ -100,12 +106,22 @@ const Course: CollectionConfig = {
           name: 'registrationStartDate',
           label: 'Thời gian bắt đầu',
           type: 'date',
+          admin: {
+            date: {
+              displayFormat: 'dd/MM/yyyy',
+            },
+          },
           required: true,
         },
         {
           name: 'registrationEndDate',
           label: 'Thời gian kết thúc',
           type: 'date',
+          admin: {
+            date: {
+              displayFormat: 'dd/MM/yyyy',
+            },
+          },
           required: true,
         },
       ],

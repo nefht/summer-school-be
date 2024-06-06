@@ -13,6 +13,7 @@ import Posts from './collections/Posts';
 import Media from './collections/Media';
 import Registrations from './collections/Registrations';
 import Course from './collections/Course';
+import AboutUs from './collections/AboutUs';
 
 import Dashboard from './views/Dashboard';
 
@@ -41,7 +42,7 @@ export default buildConfig({
 
   editor: slateEditor({}),
 
-  collections: [Users, Posts, Media, Registrations, Course],
+  collections: [Users, Posts, Media, Registrations, Course, AboutUs],
 
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

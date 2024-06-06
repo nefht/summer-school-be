@@ -1,5 +1,6 @@
 import payload from 'payload';
 import { CollectionConfig } from 'payload/types';
+import formatDate from './../utils/format-date';
 
 const Registrations: CollectionConfig = {
   slug: 'registrations',
@@ -156,20 +157,27 @@ const Registrations: CollectionConfig = {
 
   hooks: {
     afterChange: [
-      ({ doc, operation }) => {
+      async ({ doc, operation, req }) => {
         console.log(doc);
 
         if (operation === 'create') {
           const confirmUrl = `${process.env.PAYLOAD_PUBLIC_EXTERNAL_SERVER_URL}/api/registrations/confirm-registration/${doc.id}`;
           const cancelmUrl = `${process.env.PAYLOAD_PUBLIC_EXTERNAL_SERVER_URL}/api/registrations/cancel-registration/${doc.id}`;
+
+          const course = await req.payload.find({
+            collection: 'course',
+          });
+          const registrationEndDate =
+            course.docs[0].registrationTime.registrationEndDate;
+
           payload.sendEmail({
             to: doc.email,
             from: process.env.EMAIL_USER,
-            subject: 'Xác nhận đăng ký khóa học SUMMER SCHOOL',
+            subject: '[SUMMER SCHOOL] Xác nhận đăng ký khóa học',
             html: `
               <div style="width: 600px; margin: 0 auto;">
                 <div>
-                  <h1>SUMMER SCHOOL - Xác nhận đăng ký khóa học</h1>
+                  <h1>Xác nhận đăng ký khóa học Generative AI</h1>
                   <p>Xin chào ${doc.name},</p>
 
                   <p>Chúng tôi đã nhận được đơn đăng ký khóa học hè của bạn. Vui lòng bấm vào đường link sau để xác nhận đăng ký:</p>
@@ -178,11 +186,13 @@ const Registrations: CollectionConfig = {
                   <a href=${cancelmUrl}>Hủy bỏ</a>
                   <br/>
                   <br/>
+                  <p>Vui lòng xác nhận đăng ký trước ngày: <span style="color: #fd661f; font-weight: bold">${formatDate(registrationEndDate)}</span></p>
                   <b>Cảm ơn bạn vì đã quan tâm đến khóa học của chúng tôi.</b>
                 </div>
 
                 <div>
-                  <p>Summer School Team</p>
+                  <p>Trân trọng,</p>
+                  <p>Summer School.</p>
                 </div>
               </div>
             `,
@@ -259,9 +269,9 @@ const Registrations: CollectionConfig = {
           });
           res.status(200).send(response);
         } catch (error) {
-          res
-            .status(500)
-            .send({ error: 'An error occurred while fetching the count' });
+          res.status(500).send({
+            error: 'An error occurred while fetching confirmed registrations',
+          });
         }
       },
     },
@@ -278,7 +288,11 @@ const Registrations: CollectionConfig = {
             id,
             data: { status: 'confirmed' },
           });
-          res.status(200).send('Registration confirmed successfully');
+          res
+            .status(200)
+            .redirect(
+              `${process.env.FRONTEND_SERVER_URL}/registration-confirmation`,
+            );
         } catch (error) {
           res.status(500).send({
             error: 'An error occurred while confirming the registration',
@@ -299,7 +313,11 @@ const Registrations: CollectionConfig = {
             id,
             data: { status: 'cancelled' },
           });
-          res.status(200).send('Registration cancelled successfully');
+          res
+            .status(200)
+            .redirect(
+              `${process.env.FRONTEND_SERVER_URL}/registration-cancellation`,
+            );
         } catch (error) {
           res.status(500).send({
             error: 'An error occurred while cancelling the registration',
