@@ -95,6 +95,25 @@ const Course: CollectionConfig = {
     },
     //Side bar
     {
+      name: 'status',
+      label: 'Trạng thái đóng/mở',
+      type: 'select',
+      options: [
+        {
+          value: 'opened',
+          label: 'Mở',
+        },
+        {
+          value: 'closed',
+          label: 'Đóng',
+        },
+      ],
+      defaultValue: 'opened',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'registrationTime',
       label: 'Thời gian đăng ký',
       type: 'group',
