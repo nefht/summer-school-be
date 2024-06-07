@@ -10,6 +10,7 @@ import 'chart.js/auto';
 import moment from 'moment';
 
 import KnowledgeLevelChart from './KnowledgeLevelChart';
+import TargetGroupChart from './TargetGroupChart';
 import ExportRegistrations from './ExportRegistrations';
 import ExportConfirmed from './ExportConfirmed';
 
@@ -109,6 +110,7 @@ export default function Dashboard() {
           </Row>
         </div>
         <KnowledgeLevelChart />
+        <TargetGroupChart />
       </Gutter>
     </>
   );

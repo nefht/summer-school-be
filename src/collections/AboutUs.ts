@@ -12,6 +12,7 @@ const AboutUs: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'description'],
     useAsTitle: 'title',
+    group: 'Trang quản trị',
   },
   access: {
     read: () => true,

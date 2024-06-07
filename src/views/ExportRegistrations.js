@@ -11,8 +11,9 @@ const ExportRegistrations = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/registrations');
+        const response = await fetch('/api/registrations?limit=0');
         const registrationsData = await response.json();
+
         registrationsData.docs.forEach((doc, index) => {
           const registrationDoc = {
             index: index + 1,
@@ -55,7 +56,7 @@ const ExportRegistrations = () => {
     fetchData();
   }, []);
 
-  console.log(registrations);
+  // console.log(registrations);
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);

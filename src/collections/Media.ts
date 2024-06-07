@@ -16,10 +16,12 @@ const Media: CollectionConfig = {
   fields: [
     {
       name: 'alt',
+      label: 'Văn bản thay thế',
       type: 'text',
     },
     {
       name: 'description',
+      label: 'Tên hình ảnh',
       type: 'text',
     },
   ],

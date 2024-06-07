@@ -70,7 +70,7 @@ const Registrations: CollectionConfig = {
         },
         {
           label: 'Người đi làm',
-          value: 'working_person',
+          value: 'workingPerson',
         },
       ],
       defaultValue: 'pupil',
@@ -358,6 +358,44 @@ const Registrations: CollectionConfig = {
             }
             if (registration.knowledgeLevel == '4') {
               counts['4']++;
+            }
+          });
+
+          res.status(200).send(counts);
+        } catch (error) {
+          res
+            .status(500)
+            .send({ error: 'An error occurred while fetching the counts' });
+        }
+      },
+    },
+
+    // Đếm số lượng Target Groups
+    {
+      path: '/count-target-groups',
+      method: 'get',
+      handler: async (req, res) => {
+        try {
+          const counts = {
+            pupil: 0,
+            student: 0,
+            workingPerson: 0,
+          };
+
+          const response = await req.payload.find({
+            collection: 'registrations',
+            limit: 0,
+          });
+
+          response.docs.forEach((registration) => {
+            if (registration.targetGroup == 'pupil') {
+              counts['pupil']++;
+            }
+            if (registration.targetGroup == 'student') {
+              counts['student']++;
+            }
+            if (registration.targetGroup == 'workingPerson') {
+              counts['workingPerson']++;
             }
           });
 

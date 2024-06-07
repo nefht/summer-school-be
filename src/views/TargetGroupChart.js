@@ -14,37 +14,27 @@ const KnowledgeLevelChart = () => {
     const fetchData = async () => {
       try {
         // Fetch knowledgeLevels data from an API endpoint
-        const response = await fetch(
-          '/api/registrations/count-knowledge-levels',
-        );
-        const knowledgeLevels = await response.json();
+        const response = await fetch('/api/registrations/count-target-groups');
+        const targetGroups = await response.json();
 
         setChartData({
-          labels: [
-            'Chưa biết gì',
-            'Tương đối hiểu biết',
-            'Hiểu biết',
-            'Chuyên gia',
-          ],
+          labels: ['Học sinh', 'Sinh viên', 'Người đi làm'],
           datasets: [
             {
               data: [
-                knowledgeLevels['1'],
-                knowledgeLevels['2'],
-                knowledgeLevels['3'],
-                knowledgeLevels['4'],
+                targetGroups['pupil'],
+                targetGroups['student'],
+                targetGroups['workingPerson'],
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
+                'rgb(122, 186, 120, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgb(82, 76, 66, 0.2)',
               ],
               borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
+                'rgb(122, 186, 120)',
+                'rgb(153, 102, 255)',
+                'rgb(82, 76, 66)',
               ],
               borderWidth: 1,
               barThickness: 50,
@@ -70,7 +60,7 @@ const KnowledgeLevelChart = () => {
         height: 'auto',
       }}
     >
-      <h3>Thống kê Mức độ hiểu biết về chủ đề</h3>
+      <h3>Thống kê Đối tượng đăng ký khóa học</h3>
       {loading ? (
         <Spin
           style={{
@@ -95,7 +85,7 @@ const KnowledgeLevelChart = () => {
                     },
                     title: {
                       display: true,
-                      text: 'Mức độ hiểu biết về chủ đề',
+                      text: 'Đối tượng đăng ký',
                     },
                   },
                 }}
@@ -112,7 +102,7 @@ const KnowledgeLevelChart = () => {
                   plugins: {
                     title: {
                       display: true,
-                      text: 'Mức độ hiểu biết về chủ đề',
+                      text: 'Đối tượng đăng ký',
                     },
                     datalabels: {
                       // Thêm plugin datalabels vào đây

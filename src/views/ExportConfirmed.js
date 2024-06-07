@@ -49,7 +49,7 @@ const ExportConfirmed = () => {
     fetchData();
   }, []);
 
-  console.log(registrations);
+  // console.log(registrations);
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);

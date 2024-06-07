@@ -17,17 +17,29 @@ import AboutUs from './collections/AboutUs';
 
 import Dashboard from './views/Dashboard';
 
+import Logo from './graphics/Logo.jsx';
+import Icon from './graphics/Icon.jsx';
+
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_EXTERNAL_SERVER_URL,
   // serverURL: process.env.HOST_PUBLIC_EXTERNAL_SERVER_URL,
 
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: '- Summer School',
+      // favicon: './assets/logo.png',
+      ogImage: './assets/logo.svg',
+    },
     bundler: webpackBundler(),
     css: path.resolve(__dirname, 'custom-styles.css'),
     components: {
       views: {
         Dashboard: Dashboard,
+      },
+      graphics: {
+        Logo,
+        Icon,
       },
     },
   },
