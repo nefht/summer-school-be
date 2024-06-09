@@ -128,7 +128,8 @@ const Posts: CollectionConfig = {
       admin: {
         position: 'sidebar',
         date: {
-          displayFormat: 'dd/MM/yyyy',
+          displayFormat: 'dd/MM/yyyy HH:mm',
+          pickerAppearance: 'dayAndTime',
         },
         condition: (data, originalDoc) => data.status == 'published',
       },
@@ -149,6 +150,26 @@ const Posts: CollectionConfig = {
       path: '/published',
       method: 'get',
       handler: async (req, res) => {
+        const { page = 1, limit = 10, search } = req.query;
+        const parsedPage = parseInt(page as string, 10);
+        const parsedLimit = parseInt(limit as string, 10);
+        const searchCriteria = search
+          ? {
+              or: [
+                {
+                  title: {
+                    contains: search,
+                  },
+                },
+                {
+                  description: {
+                    contains: search,
+                  },
+                },
+              ],
+            }
+          : {};
+
         try {
           const response = await req.payload.find({
             collection: 'posts',
@@ -159,10 +180,34 @@ const Posts: CollectionConfig = {
               publishedDate: {
                 less_than_equal: new Date(),
               },
+              ...searchCriteria,
             },
-            limit: 0,
+            limit: parsedLimit,
+            page: parsedPage,
           });
-          res.status(200).send(response);
+
+          const totalDocuments = await req.payload.count({
+            collection: 'posts',
+            where: {
+              status: {
+                equals: 'published',
+              },
+              publishedDate: {
+                less_than_equal: new Date(),
+              },
+              ...searchCriteria,
+            },
+          });
+
+          const totalPages = Math.ceil(totalDocuments.totalDocs / parsedLimit);
+
+          res.status(200).send({
+            totalDocs: totalDocuments.totalDocs,
+            totalPages,
+            page: parsedPage,
+            limit: parsedLimit,
+            docs: response.docs,
+          });
         } catch (error) {
           res.status(500).send({
             error: 'An error occurred while fetching the published posts',
