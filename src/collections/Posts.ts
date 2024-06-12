@@ -10,7 +10,7 @@ const Posts: CollectionConfig = {
     plural: 'Tin bài',
   },
   admin: {
-    defaultColumns: ['title', 'description'],
+    defaultColumns: ['title', 'description', 'publishedDate'],
     useAsTitle: 'title',
     description: 'Trang quản lý tin bài',
     group: 'Quản lý',
@@ -81,10 +81,11 @@ const Posts: CollectionConfig = {
           label: 'Nội dung tin bài',
           fields: [
             {
-              name: 'layout',
+              name: 'content',
               label: 'Nội dung',
-              type: 'blocks',
-              blocks: [Quote, Content, Alert],
+              type: 'richText',
+              // type: 'blocks',
+              // blocks: [Quote, Content, Alert],
             },
           ],
         },
@@ -134,15 +135,16 @@ const Posts: CollectionConfig = {
         condition: (data, originalDoc) => data.status == 'published',
       },
     },
-    {
-      name: 'author',
-      label: 'Tác giả',
-      type: 'relationship',
-      relationTo: 'users',
-      admin: {
-        position: 'sidebar',
-      },
-    },
+    // {
+    //   name: 'author',
+    //   label: 'Tác giả',
+    //   type: 'relationship',
+    //   relationTo: 'users',
+    //   hasMany: true,
+    //   admin: {
+    //     position: 'sidebar',
+    //   },
+    // },
   ],
 
   endpoints: [

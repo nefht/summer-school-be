@@ -14,3 +14,7 @@ html body button {
 html body input[type='text'] {
   border-radius: 20px;
 }
+
+.rich-text__input {
+  font-family: Arial, Helvetica, sans-serif;
+}
