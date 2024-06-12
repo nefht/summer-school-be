@@ -5,12 +5,12 @@ import formatDate from './../utils/format-date';
 const Registrations: CollectionConfig = {
   slug: 'registrations',
   labels: {
-    singular: 'Đơn đăng ký',
-    plural: 'Đơn đăng ký',
+    singular: 'Đơn đăng ký học',
+    plural: 'Đơn đăng ký học',
   },
   admin: {
     useAsTitle: 'name',
-    group: 'Trang quản trị',
+    group: 'Quản lý',
   },
   access: {
     create: () => true,

@@ -19,6 +19,7 @@ import Dashboard from './views/Dashboard';
 
 import Logo from './graphics/Logo.jsx';
 import Icon from './graphics/Icon.jsx';
+import Nav from './components/nav/Nav';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_EXTERNAL_SERVER_URL,
@@ -32,8 +33,29 @@ export default buildConfig({
       ogImage: './assets/logo.svg',
     },
     bundler: webpackBundler(),
+    webpack: (config) => ({
+      ...config,
+      module: {
+        ...config.module,
+        rules: [
+          ...config.module.rules,
+          {
+            test: /\tailwind.css$/i,
+            use: ['css-loader', 'postcss-loader'],
+          },
+        ],
+      },
+      resolve: {
+        ...config.resolve,
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        alias: {
+          ...config.resolve.alias,
+        },
+      },
+    }),
     css: path.resolve(__dirname, 'custom-styles.css'),
     components: {
+      Nav: Nav,
       views: {
         Dashboard: Dashboard,
       },

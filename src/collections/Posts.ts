@@ -13,7 +13,7 @@ const Posts: CollectionConfig = {
     defaultColumns: ['title', 'description'],
     useAsTitle: 'title',
     description: 'Trang quản lý tin bài',
-    group: 'Trang quản trị',
+    group: 'Quản lý',
   },
   access: {
     read: () => true,

@@ -14,7 +14,7 @@ const Users: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'email',
-    group: 'Trang quản trị',
+    group: 'Quản lý',
   },
   fields: [
     // Email added by default

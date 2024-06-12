@@ -9,7 +9,7 @@ const Course: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    group: 'Trang quản trị',
+    group: 'Quản lý',
   },
   access: {
     read: () => true,
