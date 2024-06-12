@@ -72,14 +72,18 @@ const KnowledgeLevelChart = () => {
     >
       <h3>Thống kê Mức độ hiểu biết về chủ đề</h3>
       {loading ? (
-        <Spin
+        <div
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
+            width: '100%',
+            height: '300px',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-        />
+        >
+          <Spin />
+        </div>
       ) : (
         // <div style={{ display: 'flex' }}>
         <Row>
