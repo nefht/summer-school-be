@@ -149,6 +149,31 @@ const Posts: CollectionConfig = {
 
   endpoints: [
     {
+      path: '/published-all',
+      method: 'get',
+      handler: async (req, res) => {
+        try {
+          const response = await req.payload.find({
+            collection: 'posts',
+            where: {
+              status: {
+                equals: 'published',
+              },
+              publishedDate: {
+                less_than_equal: new Date(),
+              },
+            },
+            limit: 0,
+          });
+          res.status(200).send(response);
+        } catch (error) {
+          res.status(500).send({
+            error: 'An error occurred while fetching the published posts',
+          });
+        }
+      },
+    },
+    {
       path: '/published',
       method: 'get',
       handler: async (req, res) => {
@@ -186,6 +211,7 @@ const Posts: CollectionConfig = {
             },
             limit: parsedLimit,
             page: parsedPage,
+            sort: '-publishedDate',
           });
 
           const totalDocuments = await req.payload.count({
