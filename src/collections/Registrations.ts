@@ -341,6 +341,11 @@ const Registrations: CollectionConfig = {
 
           const response = await req.payload.find({
             collection: 'registrations',
+            where: {
+              status: {
+                equals: 'confirmed',
+              },
+            },
             limit: 0,
           });
 
@@ -384,6 +389,11 @@ const Registrations: CollectionConfig = {
 
           const response = await req.payload.find({
             collection: 'registrations',
+            where: {
+              status: {
+                equals: 'confirmed',
+              },
+            },
             limit: 0,
           });
 
