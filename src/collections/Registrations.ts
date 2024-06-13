@@ -37,6 +37,7 @@ const Registrations: CollectionConfig = {
           value: 'female',
         },
       ],
+      required: true,
     },
     {
       name: 'dateOfBirth',

@@ -125,6 +125,7 @@ const Posts: CollectionConfig = {
       name: 'publishedDate',
       label: 'Ngày đăng',
       type: 'date',
+      defaultValue: () => new Date().toISOString(),
       required: true,
       admin: {
         position: 'sidebar',
